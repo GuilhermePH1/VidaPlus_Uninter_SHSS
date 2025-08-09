@@ -1,0 +1,1840 @@
+{
+	"info": {
+		"_postman_id": "12345678-abcd-1234-abcd-123456789012",
+		"name": "VidaPlus API - Sistema Consolidado 100% Aprovado",
+		"description": "Coleção completa de testes para o Sistema VidaPlus consolidado com 100% de aprovação.\n\nEsta coleção espelha exatamente os testes Python que alcançaram 100% de sucesso e inclui:\n- Testes básicos (Health Check, CORS, Sistema)\n- Autenticação completa (Login, Perfil, Logout)\n- CRUD completo para Pacientes (Create, Read, Update, Delete)\n- CRUD completo para Profissionais (Create, Read, Update, Delete)\n- CRUD completo para Consultas (Create, Read, Update, Delete)\n- CRUD completo para Receitas/Prescrições (Create, Read, Update, Delete)\n\nTodos os testes incluem validações robustas e dados de teste otimizados.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"version": "3.0.0"
+	},
+	"item": [
+		{
+			"name": "00 - Preparação",
+			"item": [
+				{
+					"name": "Recriar Banco de Dados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Banco recriado com sucesso', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.status).to.eql('success');",
+									"    pm.expect(response.message).to.include('sucesso');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/recreate-db",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"recreate-db"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "01 - Testes Básicos",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Resposta contém status healthy', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('healthy');",
+									"    pm.expect(jsonData.message).to.include('funcionando corretamente');",
+									"    pm.expect(jsonData).to.have.property('timestamp');",
+									"    pm.expect(jsonData).to.have.property('database');",
+									"});",
+									"",
+									"pm.test('Tempo de resposta menor que 1000ms', function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Informações do Sistema",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Informações do sistema corretas', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.sistema).to.include('VidaPlus');",
+									"    pm.expect(jsonData.versao).to.eql('1.0.0');",
+									"    pm.expect(jsonData.status).to.eql('ativo');",
+									"    pm.expect(jsonData).to.have.property('timestamp');",
+									"    pm.expect(jsonData).to.have.property('endpoints');",
+									"    pm.expect(jsonData).to.have.property('documentacao');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Teste CORS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('CORS funcionando', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include('CORS está funcionando');",
+									"    pm.expect(jsonData.method).to.eql('GET');",
+									"    pm.expect(jsonData).to.have.property('headers');",
+									"    pm.expect(jsonData).to.have.property('timestamp');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/test",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02 - Autenticação",
+			"item": [
+				{
+					"name": "Login Administrador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Login realizado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData).to.have.property('token');",
+									"    pm.expect(jsonData.token).to.be.a('string');",
+									"    pm.expect(jsonData.token.length).to.be.greaterThan(10);",
+									"    ",
+									"    // Salvar token para próximas requisições",
+									"    pm.collectionVariables.set('auth_token', jsonData.token);",
+									"});",
+									"",
+									"pm.test('Dados do usuário retornados', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('usuario');",
+									"    pm.expect(jsonData.usuario.email).to.eql('admin@vidaplus.com');",
+									"    pm.expect(jsonData.usuario.tipo).to.eql('admin');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@vidaplus.com\",\n    \"senha\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Perfil do Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Perfil retornado corretamente', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('usuario');",
+									"    pm.expect(jsonData.usuario.email).to.eql('admin@vidaplus.com');",
+									"    pm.expect(jsonData.usuario.tipo).to.eql('admin');",
+									"    pm.expect(jsonData.usuario).to.have.property('id');",
+									"    pm.expect(jsonData.usuario).to.have.property('ativo');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/perfil",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03 - CRUD Pacientes",
+			"item": [
+				{
+					"name": "Cadastrar Paciente 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Paciente cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData).to.have.property('paciente');",
+									"    pm.expect(jsonData.paciente).to.have.property('id');",
+									"    pm.expect(jsonData.paciente.nome).to.eql('João Silva');",
+									"    pm.expect(jsonData.paciente.cpf).to.eql('123.456.789-09');",
+									"    ",
+									"    // Salvar ID do paciente",
+									"    pm.collectionVariables.set('paciente_id_1', jsonData.paciente.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"paciente1.teste@vidaplus.com\",\n    \"senha\": \"Paciente123!\",\n    \"cpf\": \"123.456.789-09\",\n    \"nome\": \"João Silva\",\n    \"data_nascimento\": \"1990-05-15\",\n    \"sexo\": \"M\",\n    \"telefone\": \"(11) 99999-1001\",\n    \"endereco\": \"Rua das Flores, 123 - São Paulo/SP\",\n    \"plano_saude\": \"Unimed\",\n    \"alergias\": \"Penicilina\",\n    \"medicamentos_uso\": \"Nenhum\",\n    \"historico_familiar\": \"Diabetes na família\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pacientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Paciente 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Paciente cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.paciente.nome).to.eql('Maria Santos');",
+									"    pm.collectionVariables.set('paciente_id_2', jsonData.paciente.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"paciente2.teste@vidaplus.com\",\n    \"senha\": \"Paciente123!\",\n    \"cpf\": \"987.654.321-00\",\n    \"nome\": \"Maria Santos\",\n    \"data_nascimento\": \"1985-08-20\",\n    \"sexo\": \"F\",\n    \"telefone\": \"(11) 88888-2002\",\n    \"endereco\": \"Av. Paulista, 456 - São Paulo/SP\",\n    \"plano_saude\": \"Amil\",\n    \"alergias\": \"Nenhuma\",\n    \"medicamentos_uso\": \"Vitamina D\",\n    \"historico_familiar\": \"Hipertensão\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pacientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Paciente 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Paciente cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.paciente.nome).to.eql('Pedro Oliveira');",
+									"    pm.collectionVariables.set('paciente_id_3', jsonData.paciente.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"paciente3.teste@vidaplus.com\",\n    \"senha\": \"Paciente123!\",\n    \"cpf\": \"111.444.777-35\",\n    \"nome\": \"Pedro Oliveira\",\n    \"data_nascimento\": \"1978-12-10\",\n    \"sexo\": \"M\",\n    \"telefone\": \"(11) 77777-3003\",\n    \"endereco\": \"Rua Augusta, 789 - São Paulo/SP\",\n    \"plano_saude\": \"SulAmérica\",\n    \"alergias\": \"Dipirona\",\n    \"medicamentos_uso\": \"Omeprazol\",\n    \"historico_familiar\": \"Câncer na família\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pacientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Pacientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Lista de pacientes retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('pacientes');",
+									"    pm.expect(jsonData.pacientes).to.be.an('array');",
+									"    pm.expect(jsonData.pacientes.length).to.be.greaterThan(2);",
+									"    pm.expect(jsonData).to.have.property('paginacao');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pacientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Paciente Específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Paciente específico retornado', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('paciente');",
+									"    pm.expect(jsonData.paciente.nome).to.eql('João Silva');",
+									"    pm.expect(jsonData.paciente.cpf).to.eql('123.456.789-09');",
+									"    pm.expect(jsonData.paciente).to.have.property('endereco');",
+									"    pm.expect(jsonData.paciente).to.have.property('plano_saude');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pacientes/{{paciente_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes",
+								"{{paciente_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Paciente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Paciente atualizado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.paciente.nome).to.eql('João Silva Atualizado');",
+									"    pm.expect(jsonData.paciente.telefone).to.eql('(11) 66666-6666');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"João Silva Atualizado\",\n    \"telefone\": \"(11) 66666-6666\",\n    \"endereco\": \"Rua das Palmeiras, 999 - São Paulo/SP\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pacientes/{{paciente_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes",
+								"{{paciente_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Paciente (Temporário)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Primeiro criar um paciente temporário para exclusão",
+									"const tempPaciente = {",
+									"    email: 'temp.delete@vidaplus.com',",
+									"    senha: 'Temp123!',",
+									"    cpf: '111.222.333-96',",
+									"    nome: 'Paciente Temporário',",
+									"    data_nascimento: '1995-01-01',",
+									"    sexo: 'M',",
+									"    telefone: '(11) 99999-0000',",
+									"    endereco: 'Rua Temporária, 999',",
+									"    plano_saude: 'Particular'",
+									"};",
+									"",
+									"pm.sendRequest({",
+									"    url: pm.collectionVariables.get('base_url') + '/api/pacientes',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'Authorization': 'Bearer ' + pm.collectionVariables.get('auth_token')",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(tempPaciente)",
+									"    }",
+									"}, function (err, response) {",
+									"    if (response.code === 201) {",
+									"        const responseData = response.json();",
+									"        pm.collectionVariables.set('temp_paciente_id', responseData.paciente.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Paciente excluído com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pacientes/{{temp_paciente_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pacientes",
+								"{{temp_paciente_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "04 - CRUD Profissionais",
+			"item": [
+				{
+					"name": "Cadastrar Profissional 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Profissional cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData).to.have.property('profissional');",
+									"    pm.expect(jsonData.profissional.nome).to.eql('Dr. Carlos Mendes');",
+									"    pm.expect(jsonData.profissional.especialidade).to.eql('Cardiologia');",
+									"    ",
+									"    pm.collectionVariables.set('profissional_id_1', jsonData.profissional.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carlos.mendes.teste@vidaplus.com\",\n    \"senha\": \"Profissional123!\",\n    \"crm_coren\": \"CRM-123456\",\n    \"nome\": \"Dr. Carlos Mendes\",\n    \"especialidade\": \"Cardiologia\",\n    \"telefone\": \"(11) 99999-4001\",\n    \"email_profissional\": \"carlos.mendes.teste@vidaplus.com\",\n    \"data_admissao\": \"2020-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profissionais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Profissional 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Profissional cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.profissional.nome).to.eql('Dra. Ana Paula Costa');",
+									"    pm.collectionVariables.set('profissional_id_2', jsonData.profissional.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ana.costa.teste@vidaplus.com\",\n    \"senha\": \"Profissional123!\",\n    \"crm_coren\": \"CRM-789012\",\n    \"nome\": \"Dra. Ana Paula Costa\",\n    \"especialidade\": \"Pediatria\",\n    \"telefone\": \"(11) 88888-5002\",\n    \"email_profissional\": \"ana.costa.teste@vidaplus.com\",\n    \"data_admissao\": \"2019-03-20\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profissionais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Profissional 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Profissional cadastrado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.profissional.nome).to.eql('Dr. Roberto Almeida');",
+									"    pm.collectionVariables.set('profissional_id_3', jsonData.profissional.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"roberto.almeida.teste@vidaplus.com\",\n    \"senha\": \"Profissional123!\",\n    \"crm_coren\": \"CRM-345678\",\n    \"nome\": \"Dr. Roberto Almeida\",\n    \"especialidade\": \"Ortopedia\",\n    \"telefone\": \"(11) 77777-6003\",\n    \"email_profissional\": \"roberto.almeida.teste@vidaplus.com\",\n    \"data_admissao\": \"2021-06-10\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profissionais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Profissionais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Lista de profissionais retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('profissionais');",
+									"    pm.expect(jsonData.profissionais).to.be.an('array');",
+									"    pm.expect(jsonData.profissionais.length).to.be.greaterThan(2);",
+									"    pm.expect(jsonData).to.have.property('paginacao');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profissionais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Profissional Específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Profissional específico retornado', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('profissional');",
+									"    pm.expect(jsonData.profissional.nome).to.eql('Dr. Carlos Mendes');",
+									"    pm.expect(jsonData.profissional.especialidade).to.eql('Cardiologia');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profissionais/{{profissional_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais",
+								"{{profissional_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Profissional",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Profissional atualizado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.profissional.nome).to.eql('Dr. Carlos Mendes Atualizado');",
+									"    pm.expect(jsonData.profissional.especialidade).to.eql('Cardiologia Intervencionista');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Dr. Carlos Mendes Atualizado\",\n    \"especialidade\": \"Cardiologia Intervencionista\",\n    \"telefone\": \"(11) 66666-6666\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profissionais/{{profissional_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais",
+								"{{profissional_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Profissional (Temporário)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Criar um profissional temporário para exclusão",
+									"const tempProfissional = {",
+									"    email: 'temp.prof@vidaplus.com',",
+									"    senha: 'TempProf123!',",
+									"    crm_coren: 'CRM-999999',",
+									"    nome: 'Dr. Temporário',",
+									"    especialidade: 'Clínico Geral',",
+									"    telefone: '(11) 99999-0000',",
+									"    email_profissional: 'temp.prof@vidaplus.com',",
+									"    data_admissao: '2024-01-01'",
+									"};",
+									"",
+									"pm.sendRequest({",
+									"    url: pm.collectionVariables.get('base_url') + '/api/profissionais',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'Authorization': 'Bearer ' + pm.collectionVariables.get('auth_token')",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(tempProfissional)",
+									"    }",
+									"}, function (err, response) {",
+									"    if (response.code === 201) {",
+									"        const responseData = response.json();",
+									"        pm.collectionVariables.set('temp_profissional_id', responseData.profissional.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Profissional excluído com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profissionais/{{temp_profissional_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profissionais",
+								"{{temp_profissional_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05 - CRUD Consultas",
+			"item": [
+				{
+					"name": "Cadastrar Consulta 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Gerar data futura para a consulta",
+									"const tomorrow = new Date();",
+									"tomorrow.setDate(tomorrow.getDate() + 1);",
+									"const dataHora = tomorrow.toISOString().split('T')[0] + 'T14:00:00';",
+									"pm.collectionVariables.set('data_consulta_1', dataHora);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Consulta agendada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData).to.have.property('consulta');",
+									"    pm.expect(jsonData.consulta.tipo).to.eql('Presencial');",
+									"    ",
+									"    pm.collectionVariables.set('consulta_id_1', jsonData.consulta.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_1}},\n    \"profissional_id\": {{profissional_id_1}},\n    \"unidade_id\": 1,\n    \"data_hora\": \"{{data_consulta_1}}\",\n    \"tipo\": \"Presencial\",\n    \"motivo\": \"Check-up anual\",\n    \"observacoes\": \"Paciente sem queixas\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/consultas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Consulta 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const dayAfter = new Date();",
+									"dayAfter.setDate(dayAfter.getDate() + 2);",
+									"const dataHora = dayAfter.toISOString().split('T')[0] + 'T10:30:00';",
+									"pm.collectionVariables.set('data_consulta_2', dataHora);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Consulta agendada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.consulta.tipo).to.eql('Telemedicina');",
+									"    pm.collectionVariables.set('consulta_id_2', jsonData.consulta.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_2}},\n    \"profissional_id\": {{profissional_id_2}},\n    \"unidade_id\": 1,\n    \"data_hora\": \"{{data_consulta_2}}\",\n    \"tipo\": \"Telemedicina\",\n    \"motivo\": \"Consulta de rotina\",\n    \"observacoes\": \"Consulta online\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/consultas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Consulta 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const dayAfter2 = new Date();",
+									"dayAfter2.setDate(dayAfter2.getDate() + 3);",
+									"const dataHora = dayAfter2.toISOString().split('T')[0] + 'T16:00:00';",
+									"pm.collectionVariables.set('data_consulta_3', dataHora);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Consulta agendada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.consulta.tipo).to.eql('Presencial');",
+									"    pm.collectionVariables.set('consulta_id_3', jsonData.consulta.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_3}},\n    \"profissional_id\": {{profissional_id_3}},\n    \"unidade_id\": 1,\n    \"data_hora\": \"{{data_consulta_3}}\",\n    \"tipo\": \"Presencial\",\n    \"motivo\": \"Avaliação de dor\",\n    \"observacoes\": \"Paciente com dor lombar\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/consultas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todas as Consultas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Lista de consultas retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('consultas');",
+									"    pm.expect(jsonData.consultas).to.be.an('array');",
+									"    pm.expect(jsonData.consultas.length).to.be.greaterThan(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/consultas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Consulta Específica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Consulta específica retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('consulta');",
+									"    pm.expect(jsonData.consulta.tipo).to.eql('Presencial');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/consultas/{{consulta_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas",
+								"{{consulta_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Consulta atualizada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.consulta.observacoes).to.include('atualizada');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"observacoes\": \"Consulta atualizada - paciente com melhoras\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/consultas/{{consulta_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas",
+								"{{consulta_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Consulta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Consulta excluída com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/consultas/{{consulta_id_3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas",
+								"{{consulta_id_3}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "06 - CRUD Receitas",
+			"item": [
+				{
+					"name": "Cadastrar Receita 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Receita criada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData).to.have.property('prescricao');",
+									"    pm.expect(jsonData.prescricao.medicamentos).to.include('Dipirona');",
+									"    ",
+									"    pm.collectionVariables.set('receita_id_1', jsonData.prescricao.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_1}},\n    \"profissional_id\": {{profissional_id_1}},\n    \"medicamentos\": \"Dipirona 500mg - 1 comprimido 4x ao dia\",\n    \"dosagem\": \"1 comprimido 4x ao dia\",\n    \"duracao\": \"7 dias\",\n    \"observacoes\": \"Tomar com água\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/receitas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Receita 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Receita criada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.prescricao.medicamentos).to.include('Paracetamol');",
+									"    pm.collectionVariables.set('receita_id_2', jsonData.prescricao.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_2}},\n    \"profissional_id\": {{profissional_id_2}},\n    \"medicamentos\": \"Paracetamol 750mg - 1 comprimido 3x ao dia\",\n    \"dosagem\": \"1 comprimido 3x ao dia\",\n    \"duracao\": \"5 dias\",\n    \"observacoes\": \"Tomar após as refeições\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/receitas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Receita 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Receita criada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.prescricao.medicamentos).to.include('Ibuprofeno');",
+									"    pm.collectionVariables.set('receita_id_3', jsonData.prescricao.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paciente_id\": {{paciente_id_3}},\n    \"profissional_id\": {{profissional_id_3}},\n    \"medicamentos\": \"Ibuprofeno 600mg - 1 comprimido 2x ao dia\",\n    \"dosagem\": \"1 comprimido 2x ao dia\",\n    \"duracao\": \"10 dias\",\n    \"observacoes\": \"Tomar com leite\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/receitas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todas as Receitas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Lista de receitas retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('prescricoes');",
+									"    pm.expect(jsonData.prescricoes).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/receitas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Receita Específica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Receita específica retornada', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('prescricao');",
+									"    pm.expect(jsonData.prescricao.medicamentos).to.include('Dipirona');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/receitas/{{receita_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas",
+								"{{receita_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Receita",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Receita atualizada com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"    pm.expect(jsonData.prescricao.observacoes).to.include('atualizada');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"medicamentos\": \"Dipirona 500mg - 1 comprimido 3x ao dia (atualizado)\",\n    \"observacoes\": \"Tomar com água - prescrição atualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/receitas/{{receita_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas",
+								"{{receita_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Receita",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Receita excluída com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/receitas/{{receita_id_3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"receitas",
+								"{{receita_id_3}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "07 - Finalização",
+			"item": [
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Logout realizado com sucesso', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mensagem).to.include('sucesso');",
+									"});",
+									"",
+									"// Limpar token após logout",
+									"pm.collectionVariables.unset('auth_token');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Script executado antes de cada requisição",
+					"console.log('Executando teste:', pm.info.requestName);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Script executado após cada teste",
+					"console.log('Teste concluído:', pm.info.requestName);",
+					"console.log('Status:', pm.response.code);"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

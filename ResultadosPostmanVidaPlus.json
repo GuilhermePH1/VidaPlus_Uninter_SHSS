@@ -1,0 +1,1323 @@
+{
+	"id": "8a025a69-9cca-4b1a-a757-121903e46d82",
+	"name": "VidaPlus API - Sistema Consolidado 100% Aprovado",
+	"timestamp": "2025-08-09T00:59:35.598Z",
+	"collection_id": "44462061-c2cd8c12-26ff-4ce7-be6d-5bbac4b558a8",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 71,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-08-09T00:59:27.030Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "7ca82c58-134b-4fa9-ba90-1989d6336b99",
+			"name": "Recriar Banco de Dados",
+			"url": "http://localhost:5000/api/recreate-db",
+			"time": 501,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Banco recriado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Banco recriado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				501
+			],
+			"allTests": [
+				{
+					"Banco recriado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "2474cc5f-b62b-4821-ba8c-af6251798868",
+			"name": "Health Check",
+			"url": "http://localhost:5000/api/health",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Resposta contém status healthy": true,
+				"Tempo de resposta menor que 1000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Resposta contém status healthy": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Tempo de resposta menor que 1000ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Resposta contém status healthy": true,
+					"Tempo de resposta menor que 1000ms": true
+				}
+			]
+		},
+		{
+			"id": "b8d16988-9437-48fb-98a0-5a06d947d790",
+			"name": "Informações do Sistema",
+			"url": "http://localhost:5000/",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Informações do sistema corretas": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Informações do sistema corretas": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Informações do sistema corretas": true
+				}
+			]
+		},
+		{
+			"id": "befa7fa0-0e2c-481f-876c-8d54115a9151",
+			"name": "Teste CORS",
+			"url": "http://localhost:5000/api/test",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"CORS funcionando": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"CORS funcionando": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"CORS funcionando": true
+				}
+			]
+		},
+		{
+			"id": "379fade3-8110-49c6-a97c-6d68e6770796",
+			"name": "Login Administrador",
+			"url": "http://localhost:5000/api/auth/login",
+			"time": 454,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Login realizado com sucesso": true,
+				"Dados do usuário retornados": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Login realizado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Dados do usuário retornados": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				454
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Login realizado com sucesso": true,
+					"Dados do usuário retornados": true
+				}
+			]
+		},
+		{
+			"id": "ebb03c66-3936-49e1-97a0-c3f4a0844394",
+			"name": "Perfil do Usuário",
+			"url": "http://localhost:5000/api/auth/perfil",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Perfil retornado corretamente": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Perfil retornado corretamente": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Perfil retornado corretamente": true
+				}
+			]
+		},
+		{
+			"id": "f9113a52-8ece-4574-91ad-37e81afbce3c",
+			"name": "Cadastrar Paciente 1",
+			"url": "http://localhost:5000/api/pacientes",
+			"time": 499,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Paciente cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				499
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Paciente cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "01b035e9-b339-47b5-a41a-51f9879115ec",
+			"name": "Cadastrar Paciente 2",
+			"url": "http://localhost:5000/api/pacientes",
+			"time": 470,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Paciente cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				470
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Paciente cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "6845d337-5fc1-43d8-b80a-e3e5f02c1a33",
+			"name": "Cadastrar Paciente 3",
+			"url": "http://localhost:5000/api/pacientes",
+			"time": 477,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Paciente cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				477
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Paciente cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "29e49327-d225-4d14-851b-507b3f12d5d9",
+			"name": "Listar Todos os Pacientes",
+			"url": "http://localhost:5000/api/pacientes",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Lista de pacientes retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Lista de pacientes retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Lista de pacientes retornada": true
+				}
+			]
+		},
+		{
+			"id": "55bfae9e-690d-419f-af19-0e3bd926346c",
+			"name": "Buscar Paciente Específico",
+			"url": "http://localhost:5000/api/pacientes/1",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Paciente específico retornado": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente específico retornado": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Paciente específico retornado": true
+				}
+			]
+		},
+		{
+			"id": "d0640607-e369-46ad-a97f-52a55bb6846e",
+			"name": "Editar Paciente",
+			"url": "http://localhost:5000/api/pacientes/1",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Paciente atualizado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente atualizado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Paciente atualizado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "ab854669-6bf4-40a8-bd62-60ae29957a95",
+			"name": "Excluir Paciente (Temporário)",
+			"url": "http://localhost:5000/api/pacientes/4",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Paciente excluído com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Paciente excluído com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Paciente excluído com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "4791d9b1-3f6e-42ce-93c6-e6e85fccfa2f",
+			"name": "Cadastrar Profissional 1",
+			"url": "http://localhost:5000/api/profissionais",
+			"time": 410,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Profissional cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				410
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Profissional cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "caeba399-1139-4557-b968-60c156a51b46",
+			"name": "Cadastrar Profissional 2",
+			"url": "http://localhost:5000/api/profissionais",
+			"time": 449,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Profissional cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				449
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Profissional cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "bc68cf0d-d065-4189-b04b-0abc3625cb08",
+			"name": "Cadastrar Profissional 3",
+			"url": "http://localhost:5000/api/profissionais",
+			"time": 447,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Profissional cadastrado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional cadastrado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				447
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Profissional cadastrado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "2609ec2d-b8a3-406e-8c8e-d76a3c2633a4",
+			"name": "Listar Todos os Profissionais",
+			"url": "http://localhost:5000/api/profissionais",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Lista de profissionais retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Lista de profissionais retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Lista de profissionais retornada": true
+				}
+			]
+		},
+		{
+			"id": "f121c3e1-7dd6-4e9b-8908-d126a521c808",
+			"name": "Buscar Profissional Específico",
+			"url": "http://localhost:5000/api/profissionais/1",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Profissional específico retornado": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional específico retornado": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Profissional específico retornado": true
+				}
+			]
+		},
+		{
+			"id": "39bb3b4e-931a-443e-801d-dd8fe99f465b",
+			"name": "Editar Profissional",
+			"url": "http://localhost:5000/api/profissionais/1",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Profissional atualizado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional atualizado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Profissional atualizado com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "fcb9e8e0-7fc2-4136-9134-1425f4ad2f78",
+			"name": "Excluir Profissional (Temporário)",
+			"url": "http://localhost:5000/api/profissionais/4",
+			"time": 23,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Profissional excluído com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profissional excluído com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Profissional excluído com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "5e28dcbe-508e-4ab1-810a-472f6f7527a4",
+			"name": "Cadastrar Consulta 1",
+			"url": "http://localhost:5000/api/consultas",
+			"time": 25,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Consulta agendada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta agendada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Consulta agendada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "c416b27b-a464-45e2-b1ff-5811c18c4168",
+			"name": "Cadastrar Consulta 2",
+			"url": "http://localhost:5000/api/consultas",
+			"time": 23,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Consulta agendada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta agendada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Consulta agendada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "ec06dbcd-8c42-4e97-a19e-2831b8200bce",
+			"name": "Cadastrar Consulta 3",
+			"url": "http://localhost:5000/api/consultas",
+			"time": 22,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Consulta agendada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta agendada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Consulta agendada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "84c72f26-339b-48e1-945f-d3452de8d22a",
+			"name": "Listar Todas as Consultas",
+			"url": "http://localhost:5000/api/consultas",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Lista de consultas retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Lista de consultas retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Lista de consultas retornada": true
+				}
+			]
+		},
+		{
+			"id": "e9303121-26c7-4595-b225-7c4db29604ad",
+			"name": "Buscar Consulta Específica",
+			"url": "http://localhost:5000/api/consultas/1",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Consulta específica retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta específica retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Consulta específica retornada": true
+				}
+			]
+		},
+		{
+			"id": "a0b6667c-c7af-48df-8754-ec9cc9e4b4c2",
+			"name": "Editar Consulta",
+			"url": "http://localhost:5000/api/consultas/1",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Consulta atualizada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta atualizada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Consulta atualizada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "3d0b7926-3a7b-4ee3-a66f-2bade190622f",
+			"name": "Excluir Consulta",
+			"url": "http://localhost:5000/api/consultas/3",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Consulta excluída com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Consulta excluída com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Consulta excluída com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "d839de05-8145-4e36-8b4d-245654419839",
+			"name": "Cadastrar Receita 1",
+			"url": "http://localhost:5000/api/receitas",
+			"time": 26,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Receita criada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita criada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Receita criada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "f2466d2a-1e41-4d49-9667-f653b0499946",
+			"name": "Cadastrar Receita 2",
+			"url": "http://localhost:5000/api/receitas",
+			"time": 23,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Receita criada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita criada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Receita criada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "a0a2aaa3-2e36-4a43-9a59-4552c261c657",
+			"name": "Cadastrar Receita 3",
+			"url": "http://localhost:5000/api/receitas",
+			"time": 25,
+			"responseCode": {
+				"code": 201,
+				"name": "CREATED"
+			},
+			"tests": {
+				"Status code é 201": true,
+				"Receita criada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita criada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status code é 201": true,
+					"Receita criada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "ca805fcc-abef-4129-9fe4-5a90f7ba2d82",
+			"name": "Listar Todas as Receitas",
+			"url": "http://localhost:5000/api/receitas",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Lista de receitas retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Lista de receitas retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Lista de receitas retornada": true
+				}
+			]
+		},
+		{
+			"id": "f3a73f0d-63c0-414d-8ec0-8d286d400cf7",
+			"name": "Buscar Receita Específica",
+			"url": "http://localhost:5000/api/receitas/1",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Receita específica retornada": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita específica retornada": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Receita específica retornada": true
+				}
+			]
+		},
+		{
+			"id": "137f050f-ce4f-4acc-8f9e-4aaca2ba609a",
+			"name": "Editar Receita",
+			"url": "http://localhost:5000/api/receitas/1",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Receita atualizada com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita atualizada com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Receita atualizada com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "2652d8a9-43f4-4df3-8d6a-ef4f28d4c302",
+			"name": "Excluir Receita",
+			"url": "http://localhost:5000/api/receitas/3",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Receita excluída com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Receita excluída com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Receita excluída com sucesso": true
+				}
+			]
+		},
+		{
+			"id": "7a928425-bce9-4f09-977a-e096bc64aa6a",
+			"name": "Logout",
+			"url": "http://localhost:5000/api/auth/logout",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Logout realizado com sucesso": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Logout realizado com sucesso": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Logout realizado com sucesso": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 4123,
+	"collection": {
+		"requests": [
+			{
+				"id": "7ca82c58-134b-4fa9-ba90-1989d6336b99",
+				"method": "POST"
+			},
+			{
+				"id": "2474cc5f-b62b-4821-ba8c-af6251798868",
+				"method": "GET"
+			},
+			{
+				"id": "b8d16988-9437-48fb-98a0-5a06d947d790",
+				"method": "GET"
+			},
+			{
+				"id": "befa7fa0-0e2c-481f-876c-8d54115a9151",
+				"method": "GET"
+			},
+			{
+				"id": "379fade3-8110-49c6-a97c-6d68e6770796",
+				"method": "POST"
+			},
+			{
+				"id": "ebb03c66-3936-49e1-97a0-c3f4a0844394",
+				"method": "GET"
+			},
+			{
+				"id": "f9113a52-8ece-4574-91ad-37e81afbce3c",
+				"method": "POST"
+			},
+			{
+				"id": "01b035e9-b339-47b5-a41a-51f9879115ec",
+				"method": "POST"
+			},
+			{
+				"id": "6845d337-5fc1-43d8-b80a-e3e5f02c1a33",
+				"method": "POST"
+			},
+			{
+				"id": "29e49327-d225-4d14-851b-507b3f12d5d9",
+				"method": "GET"
+			},
+			{
+				"id": "55bfae9e-690d-419f-af19-0e3bd926346c",
+				"method": "GET"
+			},
+			{
+				"id": "d0640607-e369-46ad-a97f-52a55bb6846e",
+				"method": "PUT"
+			},
+			{
+				"id": "ab854669-6bf4-40a8-bd62-60ae29957a95",
+				"method": "DELETE"
+			},
+			{
+				"id": "4791d9b1-3f6e-42ce-93c6-e6e85fccfa2f",
+				"method": "POST"
+			},
+			{
+				"id": "caeba399-1139-4557-b968-60c156a51b46",
+				"method": "POST"
+			},
+			{
+				"id": "bc68cf0d-d065-4189-b04b-0abc3625cb08",
+				"method": "POST"
+			},
+			{
+				"id": "2609ec2d-b8a3-406e-8c8e-d76a3c2633a4",
+				"method": "GET"
+			},
+			{
+				"id": "f121c3e1-7dd6-4e9b-8908-d126a521c808",
+				"method": "GET"
+			},
+			{
+				"id": "39bb3b4e-931a-443e-801d-dd8fe99f465b",
+				"method": "PUT"
+			},
+			{
+				"id": "fcb9e8e0-7fc2-4136-9134-1425f4ad2f78",
+				"method": "DELETE"
+			},
+			{
+				"id": "5e28dcbe-508e-4ab1-810a-472f6f7527a4",
+				"method": "POST"
+			},
+			{
+				"id": "c416b27b-a464-45e2-b1ff-5811c18c4168",
+				"method": "POST"
+			},
+			{
+				"id": "ec06dbcd-8c42-4e97-a19e-2831b8200bce",
+				"method": "POST"
+			},
+			{
+				"id": "84c72f26-339b-48e1-945f-d3452de8d22a",
+				"method": "GET"
+			},
+			{
+				"id": "e9303121-26c7-4595-b225-7c4db29604ad",
+				"method": "GET"
+			},
+			{
+				"id": "a0b6667c-c7af-48df-8754-ec9cc9e4b4c2",
+				"method": "PUT"
+			},
+			{
+				"id": "3d0b7926-3a7b-4ee3-a66f-2bade190622f",
+				"method": "DELETE"
+			},
+			{
+				"id": "d839de05-8145-4e36-8b4d-245654419839",
+				"method": "POST"
+			},
+			{
+				"id": "f2466d2a-1e41-4d49-9667-f653b0499946",
+				"method": "POST"
+			},
+			{
+				"id": "a0a2aaa3-2e36-4a43-9a59-4552c261c657",
+				"method": "POST"
+			},
+			{
+				"id": "ca805fcc-abef-4129-9fe4-5a90f7ba2d82",
+				"method": "GET"
+			},
+			{
+				"id": "f3a73f0d-63c0-414d-8ec0-8d286d400cf7",
+				"method": "GET"
+			},
+			{
+				"id": "137f050f-ce4f-4acc-8f9e-4aaca2ba609a",
+				"method": "PUT"
+			},
+			{
+				"id": "2652d8a9-43f4-4df3-8d6a-ef4f28d4c302",
+				"method": "DELETE"
+			},
+			{
+				"id": "7a928425-bce9-4f09-977a-e096bc64aa6a",
+				"method": "POST"
+			}
+		]
+	}
+}
