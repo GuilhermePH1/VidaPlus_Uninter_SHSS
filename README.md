@@ -1,8 +1,8 @@
-# VidaPlus - Sistema de Gestão Hospitalar (2025)
+# VidaPlus - Sistema de Gestão Hospitalar
 
-Sistema de gestão hospitalar e de saúde consolidado em um único arquivo `vidaplus.py`, com API REST completa, autenticação JWT, auditoria, notificações e CRUD para Pacientes, Profissionais, Consultas e Receitas. Este README está atualizado para 2025 e reflete a arquitetura simplificada, o banco otimizado e a coleção Postman com 100% de aprovação.
+Sistema de gestão hospitalar e de saúde consolidado em um único arquivo `vidaplus.py`, com API REST completa, autenticação JWT, auditoria, notificações e CRUD para Pacientes, Profissionais, Consultas e Receitas.
 
-### Destaques 2025
+### Destaques
 - Arquitetura simplificada: 1 arquivo Python (`vidaplus.py`) + 1 banco SQLite + 1 coleção Postman
 - Endpoint para recriar o banco: `POST /api/recreate-db` (dev/test)
 - Banco otimizado: apenas tabelas utilizadas
@@ -18,7 +18,7 @@ Sistema de gestão hospitalar e de saúde consolidado em um único arquivo `vida
 - Notificações: eventos do sistema (tabela `notificacoes`)
 - Health check, informações do sistema e teste de CORS
 
-## Tecnologias (2025)
+## Tecnologias
 - Python 3.10+
 - Flask, Flask-SQLAlchemy, Flask-JWT-Extended, Flask-Bcrypt, Flask-CORS
 - Banco: SQLite (arquivo `instance/vidaplus.db`)
@@ -40,7 +40,7 @@ python vidaplus.py
 ```
 API disponível em `http://localhost:5000`.
 
-## Estrutura (2025)
+## Estrutura
 ```
 VidaPlus_Guilherme/
 ├── vidaplus.py                 # Aplicação Flask consolidada (modelos, rotas e utilitários)
@@ -89,7 +89,7 @@ VidaPlus_Guilherme/
 - PUT `/<id>` — atualizar
 - DELETE `/<id>` — excluir
 
-## Banco de Dados (otimizado em 2025)
+## Banco de Dados
 Tabelas mantidas: `usuarios`, `pacientes`, `profissionais`, `unidades`, `consultas`, `prescricoes`, `auditoria`, `notificacoes`.
 
 Tabelas removidas (não utilizadas): `leitos`, `exames`, `prontuarios`, `telemedicina`.
@@ -133,7 +133,7 @@ curl -X POST http://localhost:5000/api/pacientes \
 - Auditoria de operações críticas
 - Boas práticas LGPD (minimização, registro e segurança de dados)
 
-## Deploy (2025)
+## Deploy
 Ambiente padrão de desenvolvimento: `python vidaplus.py`.
 
 Para produção, recomenda-se um servidor WSGI (ex.: Gunicorn + proxy reverso):
@@ -142,4 +142,5 @@ gunicorn -w 4 -b 0.0.0.0:5000 vidaplus:app
 ```
 
 ## Licença
+
 Projeto licenciado sob MIT.
